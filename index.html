@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thêm lịch hẹn</title>
+<style>
+body{
+    font-family:Arial,sans-serif;
+    max-width:700px;
+    margin:auto;
+    padding:20px;
+}
+.card{
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:20px;
+}
+button{
+    padding:12px 24px;
+    font-size:16px;
+    cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+    <h2 id="title"></h2>
+    <pre id="info" style="white-space:pre-wrap"></pre>
+
+    <button onclick="downloadICS()">
+        Thêm vào lịch
+    </button>
+</div>
+
+<script>
+
+function decodeUtf8Base64(str){
+    return JSON.parse(
+        decodeURIComponent(
+            Array.prototype.map.call(atob(str), function(c){
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join('')
+        )
+    );
+}
+
+const params = new URLSearchParams(location.search);
+const data = decodeUtf8Base64(params.get("d"));
+
+document.getElementById("title").textContent = data.title;
+
+let text = "";
+
+if(data.type === "loan"){
+
+text =
+`SĐT liên hệ: ${data.phone}
+
+Họ tên: ${data.customerName}
+Ngày giải ngân: ${data.disburseDate}
+STK khoản vay: ${data.loanAccount}
+Kỳ hạn: ${data.term}
+Ngày đến hạn: ${data.maturityDate}
+
+${data.roomName}
+${data.roomAddress}`;
+
+}else{
+
+text =
+`SĐT liên hệ: ${data.phone}
+
+Họ tên: ${data.customerName}
+Ngày gửi: ${data.sendDate}
+STK tiết kiệm: ${data.savingAccount}
+Kỳ hạn: ${data.term}
+Ngày đến hạn: ${data.maturityDate}
+
+${data.roomName}
+${data.roomAddress}`;
+}
+
+document.getElementById("info").textContent = text;
+
+function downloadICS(){
+
+const description = text.replace(/\n/g,"\\n");
+
+const ics =
+`BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//VietinBank//QR Calendar//VN
+BEGIN:VEVENT
+SUMMARY:${data.title}
+DTSTART:${data.startDate}
+DTEND:${data.endDate}
+DESCRIPTION:${description}
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Nhắc trước 1 ngày
+END:VALARM
+BEGIN:VALARM
+TRIGGER:PT0M
+ACTION:DISPLAY
+DESCRIPTION:Đến hạn
+END:VALARM
+END:VEVENT
+END:VCALENDAR`;
+
+const blob = new Blob([ics], {
+type: 'text/calendar;charset=utf-8'
+});
+
+const a = document.createElement("a");
+a.href = URL.createObjectURL(blob);
+a.download = "lichhen.ics";
+a.click();
+}
+
+</script>
+</body>
+</html>
