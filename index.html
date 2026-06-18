@@ -181,6 +181,18 @@ button{
 
             </div>
 
+            <div style="
+                margin-top:15px;
+                padding:10px;
+                background:#fff3cd;
+                border-radius:8px;
+                color:#856404;
+                text-align:center;
+                font-weight:bold;
+            ">
+                Để quay lại Zalo, vui lòng nhấn ← ở góc trên bên trái.
+            </div>
+
             <button
                 class="zalo-btn"
                 onclick="continueInZalo()">
@@ -278,17 +290,18 @@ Android:
 
 function continueInZalo(){
 
-    try{
-        history.back();
-    }catch(e){
-
-        document.getElementById("zaloOverlay").style.display = "none";
-
-    }
+    document.getElementById("zaloOverlay").style.display = "none";
 
 }
 
 function downloadICS(){
+
+if(isZalo()){
+
+        document.getElementById("zaloOverlay").style.display = "flex";
+
+        return;
+    }
 
 const description = text.replace(/\n/g,"\\n");
 
