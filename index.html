@@ -278,7 +278,13 @@ Android:
 
 function continueInZalo(){
 
-    document.getElementById("zaloOverlay").style.display = "none";
+    try{
+        history.back();
+    }catch(e){
+
+        document.getElementById("zaloOverlay").style.display = "none";
+
+    }
 
 }
 
