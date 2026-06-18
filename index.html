@@ -21,6 +21,31 @@ button{
     font-size:16px;
     cursor:pointer;
 }
+
+.zalo-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.6);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+}
+.zalo-box{
+    background:#fff;
+    width:90%;
+    max-width:420px;
+    padding:20px;
+    border-radius:12px;
+    text-align:center;
+}
+.zalo-box h3{
+    margin-top:0;
+}
+.zalo-box button{
+    width:100%;
+    margin-top:10px;
+}
 </style>
 </head>
 <body>
@@ -32,6 +57,25 @@ button{
     <button onclick="downloadICS()">
         Thêm vào lịch
     </button>
+</div>
+
+<div id="zaloOverlay" class="zalo-overlay">
+    <div class="zalo-box">
+        <h3>Đang mở bằng Zalo</h3>
+
+        <p>
+            Để thêm lịch hoạt động ổn định,
+            vui lòng mở trang bằng trình duyệt.
+        </p>
+
+        <button onclick="openExternalBrowser()">
+            Mở bằng trình duyệt
+        </button>
+
+        <button onclick="continueInZalo()">
+            Tiếp tục trong Zalo
+        </button>
+    </div>
 </div>
 
 <script>
@@ -83,6 +127,70 @@ ${data.roomAddress}`;
 }
 
 document.getElementById("info").textContent = text;
+
+if(isZalo()){
+    document.getElementById("zaloOverlay").style.display = "flex";
+}
+
+function isZalo(){
+    return /zalo/i.test(navigator.userAgent);
+}
+
+function openExternalBrowser(){
+
+    const currentUrl = location.href;
+
+    try{
+        window.open(currentUrl, "_blank");
+    }catch(e){}
+
+    setTimeout(function(){
+
+        alert(
+`Nếu trang chưa mở bằng trình duyệt:
+
+iPhone:
+• Nhấn dấu ⋯
+• Chọn "Mở bằng Safari"
+
+Android:
+• Nhấn dấu ⋮
+• Chọn "Mở bằng trình duyệt"`
+        );
+
+    },1000);
+}
+
+function continueInZalo(){
+
+    document.getElementById("zaloOverlay").style.display = "none";
+
+    const btn = document.querySelector("button");
+
+    if(btn){
+
+        btn.textContent =
+            "Mở bằng trình duyệt để thêm lịch";
+
+        btn.onclick = function(){
+
+            alert(
+`Bạn đang mở bằng Zalo.
+
+Vui lòng:
+
+iPhone:
+• Nhấn dấu ⋯
+• Mở bằng Safari
+
+Android:
+• Nhấn dấu ⋮
+• Mở bằng trình duyệt`
+            );
+
+        };
+    }
+}
 
 function downloadICS(){
 
