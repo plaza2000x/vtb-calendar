@@ -25,23 +25,95 @@ button{
 .zalo-overlay{
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.6);
+    background:rgba(0,0,0,.55);
     display:none;
     align-items:center;
     justify-content:center;
     z-index:9999;
+    padding:20px;
 }
+
 .zalo-box{
     background:#fff;
-    width:90%;
-    max-width:420px;
-    padding:20px;
-    border-radius:12px;
+    width:100%;
+    max-width:430px;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
     text-align:center;
 }
+
+.zalo-header{
+    background:#005BAC;
+    color:#fff;
+    padding:18px;
+}
+
+.zalo-header img{
+    width:70px;
+    height:auto;
+    margin-bottom:8px;
+}
+
+.zalo-header h3{
+    margin:0;
+    font-size:16px;
+    line-height:1.4;
+    font-weight:bold;
+}
+
+.zalo-content{
+    padding:22px;
+    text-align:left;
+}
+
+.zalo-warning{
+    text-align:center;
+    font-size:18px;
+    font-weight:bold;
+    color:#d32f2f;
+    margin-bottom:15px;
+}
+
+.device-box{
+    background:#f5f7fa;
+    border-radius:10px;
+    padding:12px;
+    margin-top:12px;
+}
+
+.device-title{
+    font-weight:bold;
+    color:#005BAC;
+    margin-bottom:8px;
+}
+
+.device-box ul{
+    margin:0;
+    padding-left:20px;
+}
+
+.device-box li{
+    margin:6px 0;
+}
+
+.zalo-btn{
+    width:100%;
+    border:none;
+    border-radius:10px;
+    background:#005BAC;
+    color:#fff;
+    font-size:16px;
+    font-weight:bold;
+    padding:14px;
+    cursor:pointer;
+    margin-top:18px;
+}
+
 .zalo-box h3{
     margin-top:0;
 }
+
 .zalo-box button{
     width:100%;
     margin-top:10px;
@@ -60,22 +132,67 @@ button{
 </div>
 
 <div id="zaloOverlay" class="zalo-overlay">
+
     <div class="zalo-box">
-        <h3>Đang mở bằng Zalo</h3>
 
-        <p>
-            Để thêm lịch hoạt động ổn định,
-            vui lòng mở trang bằng trình duyệt.
-        </p>
+        <div class="zalo-header">
 
-        <button onclick="openExternalBrowser()">
-            Mở bằng trình duyệt
-        </button>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Vietinbank_logo.svg/512px-Vietinbank_logo.svg.png">
 
-        <button onclick="continueInZalo()">
-            Tiếp tục trong Zalo
-        </button>
+            <h3>
+                NGÂN HÀNG TMCP<br>
+                CÔNG THƯƠNG VIỆT NAM
+            </h3>
+
+        </div>
+
+        <div class="zalo-content">
+
+            <div class="zalo-warning">
+                Bạn đang mở bằng Zalo
+            </div>
+
+            <p style="text-align:center">
+                Để thêm lịch hẹn thành công,
+                vui lòng mở bằng trình duyệt điện thoại.
+            </p>
+
+            <div class="device-box">
+
+                <div class="device-title">
+                    📱 iPhone
+                </div>
+
+                <ul>
+                    <li>Nhấn biểu tượng ⋯ góc phải</li>
+                    <li>Chọn <b>Mở bằng Safari</b></li>
+                </ul>
+
+            </div>
+
+            <div class="device-box">
+
+                <div class="device-title">
+                    🤖 Android
+                </div>
+
+                <ul>
+                    <li>Nhấn biểu tượng ⋮ góc phải</li>
+                    <li>Chọn <b>Mở bằng trình duyệt</b></li>
+                </ul>
+
+            </div>
+
+            <button
+                class="zalo-btn"
+                onclick="continueInZalo()">
+                Tôi đã hiểu
+            </button>
+
+        </div>
+
     </div>
+
 </div>
 
 <script>
@@ -165,31 +282,6 @@ function continueInZalo(){
 
     document.getElementById("zaloOverlay").style.display = "none";
 
-    const btn = document.querySelector("button");
-
-    if(btn){
-
-        btn.textContent =
-            "Mở bằng trình duyệt để thêm lịch";
-
-        btn.onclick = function(){
-
-            alert(
-`Bạn đang mở bằng Zalo.
-
-Vui lòng:
-
-iPhone:
-• Nhấn dấu ⋯
-• Mở bằng Safari
-
-Android:
-• Nhấn dấu ⋮
-• Mở bằng trình duyệt`
-            );
-
-        };
-    }
 }
 
 function downloadICS(){
