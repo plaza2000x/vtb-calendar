@@ -373,15 +373,12 @@ a.click();
 }
 
 function downloadVCF(data){
-
-```
 const note =
     `Họ tên khách hàng: ${data.customerName || ""}\\n` +
     `Số tài khoản: ${data.accountNumber || ""}\\n` +
     `Tên đăng nhập Ipay: ${data.ipayUsername || ""}`;
 
 const vcf =
-```
 
 `BEGIN:VCARD
 VERSION:3.0
@@ -393,7 +390,6 @@ ADR;TYPE=WORK:;;${data.roomAddress || ""};;;;
 NOTE:${note}
 END:VCARD`;
 
-```
 const blob = new Blob(
     [vcf],
     { type: "text/vcard;charset=utf-8" }
@@ -406,8 +402,6 @@ link.download = "contact.vcf";
 document.body.appendChild(link);
 link.click();
 document.body.removeChild(link);
-```
-
 }
 
 </script>
