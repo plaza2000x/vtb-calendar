@@ -224,6 +224,62 @@ document.getElementById("title").textContent = data.title;
 
 let text = "";
 
+if(data.type === "account"){
+
+    document.getElementById("title").innerText =
+        "THÔNG TIN TÀI KHOẢN";
+
+    document.getElementById("content").innerHTML = `
+        <div class="info-item">
+            <b>Họ tên khách hàng</b><br>
+            ${data.customerName || ""}
+        </div>
+
+        <div class="info-item">
+            <b>Số tài khoản</b><br>
+            ${data.accountNumber || ""}
+        </div>
+
+        <div class="info-item">
+            <b>Tên đăng nhập iPay</b><br>
+            ${data.ipayUsername || ""}
+        </div>
+
+        <div class="info-item">
+            <b>Phòng quản lý</b><br>
+            ${data.roomName || ""}
+        </div>
+
+        <div class="info-item">
+            <b>Địa chỉ</b><br>
+            ${data.roomAddress || ""}
+        </div>
+
+        <div class="info-item">
+            <b>SĐT liên hệ</b><br>
+            ${data.contactPhone || ""}
+        </div>
+
+        <button id="saveContactBtn"
+                class="btn-primary">
+            Lưu liên hệ
+        </button>
+    `;
+
+    document
+        .getElementById("saveContactBtn")
+        .addEventListener("click", function(){
+
+            if(isZaloBrowser()){
+                showZaloPopup();
+                return;
+            }
+
+            downloadVCF(data);
+        });
+
+}   
+
 if(data.type === "loan"){
 
 text =
@@ -333,6 +389,38 @@ const a = document.createElement("a");
 a.href = URL.createObjectURL(blob);
 a.download = "lichhen.ics";
 a.click();
+}
+
+function downloadVCF(data){
+
+    const vcf =
+`BEGIN:VCARD
+VERSION:3.0
+FN:VietinBank ${data.roomName || ""}
+ORG:VietinBank
+TEL;TYPE=WORK,VOICE:${data.contactPhone || ""}
+ADR;TYPE=WORK:;${data.roomAddress || ""}
+NOTE:Họ tên KH: ${data.customerName || ""}
+ Số TK: ${data.accountNumber || ""}
+ Tên đăng nhập iPay: ${data.ipayUsername || ""}
+END:VCARD`;
+
+    const blob = new Blob(
+        [vcf],
+        { type: "text/vcard;charset=utf-8" }
+    );
+
+    const link = document.createElement("a");
+
+    link.href = URL.createObjectURL(blob);
+
+    link.download = "contact.vcf";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
 }
 
 </script>
