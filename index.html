@@ -121,66 +121,49 @@ button{
 </style>
 </head>
 <body>
-
 <div class="card">
     <h2 id="title"></h2>
+    <div id="content"></div>
     <pre id="info" style="white-space:pre-wrap"></pre>
-
     <button onclick="downloadICS()">
         Thêm vào lịch
     </button>
 </div>
-
 <div id="zaloOverlay" class="zalo-overlay">
-
     <div class="zalo-box">
-
         <div class="zalo-header">
-
             <h3>
                 VIETINBANK<br>
                 CHI NHÁNH THÁI BÌNH
             </h3>
-
         </div>
-
         <div class="zalo-content">
-
             <div class="zalo-warning">
                 Bạn đang mở bằng Zalo
             </div>
-
             <p style="text-align:center">
                 Để thêm lịch hẹn thành công,
                 vui lòng mở bằng trình duyệt Web trên điện thoại.
             </p>
-
             <div class="device-box">
-
                 <div class="device-title">
                     📱 iPhone
                 </div>
-
                 <ul>
                     <li>Nhấn biểu tượng ⋯ góc phải</li>
                     <li>Chọn <b>Mở bằng Safari</b></li>
                 </ul>
-
             </div>
-
             <div class="device-box">
-
                 <div class="device-title">
                     🤖 Android
                 </div>
-
                 <ul>
                     <li>Nhấn biểu tượng ⋮ góc phải</li>
                     <li>Chọn <b>Mở bằng trình duyệt</b></li>
                 </ul>
 
             </div>
-
             <div style="
                 margin-top:15px;
                 padding:10px;
@@ -192,19 +175,14 @@ button{
             ">
                 Để quay lại Zalo, vui lòng nhấn ← ở góc trên bên trái.
             </div>
-
             <button
                 class="zalo-btn"
                 onclick="continueInZalo()">
                 Tôi đã hiểu
             </button>
-
         </div>
-
     </div>
-
 </div>
-
 <script>
 
 function decodeUtf8Base64(str){
@@ -270,17 +248,16 @@ if(data.type === "account"){
         .getElementById("saveContactBtn")
         .addEventListener("click", function(){
 
-            if(isZaloBrowser()){
-                showZaloPopup();
+            if(isZalo()){
+                document.getElementById("zaloOverlay").style.display = "flex";
                 return;
             }
 
             downloadVCF(data);
         });
-
+    document.querySelector('button[onclick="downloadICS()"]').style.display = "none";
 }   
-
-if(data.type === "loan"){
+else if(data.type === "loan"){
 
 text =
 `SĐT liên hệ: ${data.phone}
@@ -294,7 +271,6 @@ Ngày đến hạn: ${data.maturityDate}
 ${data.roomName} - ${data.roomAddress}`;
 
 }else{
-
 text =
 `SĐT liên hệ: ${data.phone}
 
@@ -318,15 +294,11 @@ function isZalo(){
 }
 
 function openExternalBrowser(){
-
     const currentUrl = location.href;
-
     try{
         window.open(currentUrl, "_blank");
     }catch(e){}
-
     setTimeout(function(){
-
         alert(
 `Nếu trang chưa mở bằng trình duyệt:
 
@@ -351,9 +323,7 @@ function continueInZalo(){
 function downloadICS(){
 
 if(isZalo()){
-
         document.getElementById("zaloOverlay").style.display = "flex";
-
         return;
     }
 
@@ -409,17 +379,11 @@ END:VCARD`;
         [vcf],
         { type: "text/vcard;charset=utf-8" }
     );
-
     const link = document.createElement("a");
-
     link.href = URL.createObjectURL(blob);
-
     link.download = "contact.vcf";
-
     document.body.appendChild(link);
-
     link.click();
-
     document.body.removeChild(link);
 }
 
