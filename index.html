@@ -141,7 +141,7 @@ button{
             <div class="zalo-warning">
                 Bạn đang mở bằng Zalo
             </div>
-            <p style="text-align:center">
+            <p id="zaloMessage" style="text-align:center">
                 Để thêm lịch hẹn thành công,
                 vui lòng mở bằng trình duyệt Web trên điện thoại.
             </p>
@@ -207,39 +207,21 @@ if(data.type === "account"){
     document.getElementById("title").innerText =
         "THÔNG TIN TÀI KHOẢN";
 
+    text =
+`Họ tên khách hàng: ${data.customerName || ""}
+
+Số tài khoản: ${data.accountNumber || ""}
+
+Tên đăng nhập Ipay: ${data.ipayUsername || ""}
+
+${data.roomName || ""} - ${data.roomAddress || ""}
+
+SĐT liên hệ: ${data.contactPhone || ""}`;
+
+    document.getElementById("info").textContent = text;
+
     document.getElementById("content").innerHTML = `
-        <div class="info-item">
-            <b>Họ tên khách hàng</b><br>
-            ${data.customerName || ""}
-        </div>
-
-        <div class="info-item">
-            <b>Số tài khoản</b><br>
-            ${data.accountNumber || ""}
-        </div>
-
-        <div class="info-item">
-            <b>Tên đăng nhập iPay</b><br>
-            ${data.ipayUsername || ""}
-        </div>
-
-        <div class="info-item">
-            <b>Phòng quản lý</b><br>
-            ${data.roomName || ""}
-        </div>
-
-        <div class="info-item">
-            <b>Địa chỉ</b><br>
-            ${data.roomAddress || ""}
-        </div>
-
-        <div class="info-item">
-            <b>SĐT liên hệ</b><br>
-            ${data.contactPhone || ""}
-        </div>
-
-        <button id="saveContactBtn"
-                class="btn-primary">
+        <button id="saveContactBtn">
             Lưu liên hệ
         </button>
     `;
@@ -249,14 +231,23 @@ if(data.type === "account"){
         .addEventListener("click", function(){
 
             if(isZalo()){
+
+                document.getElementById("zaloMessage").innerHTML =
+                    "Để lưu thông tin liên hệ,<br>" +
+                    "vui lòng mở bằng trình duyệt điện thoại.";
+
                 document.getElementById("zaloOverlay").style.display = "flex";
+
                 return;
             }
 
             downloadVCF(data);
         });
-    document.querySelector('button[onclick="downloadICS()"]').style.display = "none";
-}   
+
+    document.querySelector(
+        'button[onclick="downloadICS()"]'
+    ).style.display = "none";
+}  
 else if(data.type === "loan"){
 
 text =
@@ -286,6 +277,20 @@ ${data.roomName} - ${data.roomAddress}`;
 document.getElementById("info").textContent = text;
 
 if(isZalo()){
+
+    if(data.type === "account"){
+
+        document.getElementById("zaloMessage").innerHTML =
+            "Để lưu thông tin liên hệ,<br>" +
+            "vui lòng mở bằng trình duyệt điện thoại.";
+
+    }else{
+
+        document.getElementById("zaloMessage").innerHTML =
+            "Để thêm lịch hẹn thành công,<br>" +
+            "vui lòng mở bằng trình duyệt điện thoại.";
+    }
+
     document.getElementById("zaloOverlay").style.display = "flex";
 }
 
@@ -323,9 +328,15 @@ function continueInZalo(){
 function downloadICS(){
 
 if(isZalo()){
-        document.getElementById("zaloOverlay").style.display = "flex";
-        return;
-    }
+
+    document.getElementById("zaloMessage").innerHTML =
+        "Để thêm lịch hẹn thành công,<br>" +
+        "vui lòng mở bằng trình duyệt điện thoại.";
+
+    document.getElementById("zaloOverlay").style.display = "flex";
+
+    return;
+}
 
 const description = text.replace(/\n/g,"\\n");
 
@@ -369,10 +380,10 @@ VERSION:3.0
 FN:VietinBank ${data.roomName || ""}
 ORG:VietinBank
 TEL;TYPE=WORK,VOICE:${data.contactPhone || ""}
-ADR;TYPE=WORK:;${data.roomAddress || ""}
-NOTE:Họ tên KH: ${data.customerName || ""}
- Số TK: ${data.accountNumber || ""}
- Tên đăng nhập iPay: ${data.ipayUsername || ""}
+ADR;TYPE=WORK:;;${data.roomAddress || ""};;;;
+NOTE:Họ tên khách hàng: ${data.customerName || ""}\n
+Số tài khoản: ${data.accountNumber || ""}\n
+Tên đăng nhập Ipay: ${data.ipayUsername || ""}
 END:VCARD`;
 
     const blob = new Blob(
