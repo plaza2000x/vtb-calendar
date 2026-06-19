@@ -381,9 +381,7 @@ FN:VietinBank ${data.roomName || ""}
 ORG:VietinBank
 TEL;TYPE=WORK,VOICE:${data.contactPhone || ""}
 ADR;TYPE=WORK:;;${data.roomAddress || ""};;;;
-NOTE:Họ tên khách hàng: ${data.customerName || ""}\n
-Số tài khoản: ${data.accountNumber || ""}\n
-Tên đăng nhập Ipay: ${data.ipayUsername || ""}
+NOTE:Họ tên khách hàng: ${data.customerName || ""}\nSố tài khoản: ${data.accountNumber || ""}\nTên đăng nhập Ipay: ${data.ipayUsername || ""}
 END:VCARD`;
 
     const blob = new Blob(
