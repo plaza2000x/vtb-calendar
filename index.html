@@ -219,12 +219,19 @@ ${data.roomName || ""} - ${data.roomAddress || ""}
 SĐT liên hệ: ${data.contactPhone || ""}`;
 
     document.getElementById("info").textContent = text;
+    
+    document.getElementById("info").insertAdjacentHTML(
+        "afterend",
+        `
+        <div style="margin-top:20px;">
+            <button id="saveContactBtn">
+                Lưu liên hệ
+            </button>
+        </div>
+        `
+    );
 
-    document.getElementById("content").innerHTML = `
-        <button id="saveContactBtn">
-            Lưu liên hệ
-        </button>
-    `;
+    document.getElementById("content").innerHTML = "";
 
     document
         .getElementById("saveContactBtn")
