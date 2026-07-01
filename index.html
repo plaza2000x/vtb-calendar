@@ -1,213 +1,208 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Thêm thông tin</title>
-<style>
-body{
-    font-family:Arial,sans-serif;
-    max-width:700px;
-    margin:auto;
-    padding:20px;
-}
-.card{
-    border:1px solid #ddd;
-    border-radius:10px;
-    padding:20px;
-}
-button{
-    padding:12px 24px;
-    font-size:16px;
-    cursor:pointer;
-}
-
-.zalo-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.55);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:9999;
-    padding:20px;
-}
-
-.zalo-box{
-    background:#fff;
-    width:100%;
-    max-width:430px;
-    border-radius:18px;
-    overflow:hidden;
-    box-shadow:0 10px 30px rgba(0,0,0,.25);
-    text-align:center;
-}
-
-.zalo-header{
-    background:#005BAC;
-    color:#fff;
-    padding:18px;
-}
-
-.zalo-header img{
-    width:70px;
-    height:auto;
-    margin-bottom:8px;
-}
-
-.zalo-header h3{
-    margin:0;
-    font-size:16px;
-    line-height:1.4;
-    font-weight:bold;
-}
-
-.zalo-content{
-    padding:22px;
-    text-align:left;
-}
-
-.zalo-warning{
-    text-align:center;
-    font-size:18px;
-    font-weight:bold;
-    color:#d32f2f;
-    margin-bottom:15px;
-}
-
-.device-box{
-    background:#f5f7fa;
-    border-radius:10px;
-    padding:12px;
-    margin-top:12px;
-}
-
-.device-title{
-    font-weight:bold;
-    color:#005BAC;
-    margin-bottom:8px;
-}
-
-.device-box ul{
-    margin:0;
-    padding-left:20px;
-}
-
-.device-box li{
-    margin:6px 0;
-}
-
-.zalo-btn{
-    width:100%;
-    border:none;
-    border-radius:10px;
-    background:#005BAC;
-    color:#fff;
-    font-size:16px;
-    font-weight:bold;
-    padding:14px;
-    cursor:pointer;
-    margin-top:18px;
-}
-
-.zalo-box h3{
-    margin-top:0;
-}
-
-.zalo-box button{
-    width:100%;
-    margin-top:10px;
-}
-</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Thêm thông tin</title>
+    <style>
+        /* CSS được giữ nguyên và format lại cho dễ nhìn */
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: auto;
+            padding: 20px;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .zalo-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.55);
+            display: none; /* Mặc định ẩn */
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+        .zalo-box {
+            background: #fff;
+            width: 100%;
+            max-width: 430px;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,.25);
+            text-align: center;
+        }
+        .zalo-header {
+            background: #005BAC;
+            color: #fff;
+            padding: 18px;
+        }
+        .zalo-header img {
+            width: 70px;
+            height: auto;
+            margin-bottom: 8px;
+        }
+        .zalo-header h3 {
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.4;
+            font-weight: bold;
+        }
+        .zalo-content {
+            padding: 22px;
+            text-align: left;
+        }
+        .zalo-warning {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #d32f2f;
+            margin-bottom: 15px;
+        }
+        .device-box {
+            background: #f5f7fa;
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 12px;
+        }
+        .device-title {
+            font-weight: bold;
+            color: #005BAC;
+            margin-bottom: 8px;
+        }
+        .device-box ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .device-box li {
+            margin: 6px 0;
+        }
+        .zalo-btn {
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            background: #005BAC;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 14px;
+            cursor: pointer;
+            margin-top: 18px;
+        }
+        .zalo-box h3 { margin-top: 0; }
+        .zalo-box button {
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-<div class="card">
-    <h2 id="title"></h2>
-    <div id="content"></div>
-    <pre id="info" style="white-space:pre-wrap"></pre>
-    <button onclick="downloadICS()">
-        Thêm vào lịch
-    </button>
-</div>
-<div id="zaloOverlay" class="zalo-overlay">
-    <div class="zalo-box">
-        <div class="zalo-header">
-            <h3>
-                VIETINBANK<br>
-                CHI NHÁNH THÁI BÌNH
-            </h3>
-        </div>
-        <div class="zalo-content">
-            <div class="zalo-warning">
-                Bạn đang mở bằng Zalo
-            </div>
-            <p id="zaloMessage" style="text-align:center">
-                Để thêm lịch hẹn thành công,
-                vui lòng mở bằng trình duyệt Web trên điện thoại.
-            </p>
-            <div class="device-box">
-                <div class="device-title">
-                    📱 iPhone
-                </div>
-                <ul>
-                    <li>Nhấn biểu tượng ⋯ góc phải</li>
-                    <li>Chọn <b>Mở bằng Safari</b></li>
-                </ul>
-            </div>
-            <div class="device-box">
-                <div class="device-title">
-                    🤖 Android
-                </div>
-                <ul>
-                    <li>Nhấn biểu tượng ⋮ góc phải</li>
-                    <li>Chọn <b>Mở bằng trình duyệt</b></li>
-                </ul>
+    <div class="card">
+        <h2 id="title">Đang tải dữ liệu...</h2>
+        <div id="content"></div>
+        <pre id="info" style="white-space:pre-wrap"></pre>
+        <!-- Thêm ID calendarBtn để truy xuất DOM nhanh hơn -->
+        <button id="calendarBtn" onclick="downloadICS()">
+            Thêm vào lịch
+        </button>
+    </div>
 
+    <!-- Popup cảnh báo Zalo -->
+    <div id="zaloOverlay" class="zalo-overlay">
+        <div class="zalo-box">
+            <div class="zalo-header">
+                <h3>VIETINBANK<br>CHI NHÁNH THÁI BÌNH</h3>
             </div>
-            <div style="
-                margin-top:15px;
-                padding:10px;
-                background:#fff3cd;
-                border-radius:8px;
-                color:#856404;
-                text-align:center;
-                font-weight:bold;
-            ">
-                Để quay lại Zalo, vui lòng nhấn ← ở góc trên bên trái.
+            <div class="zalo-content">
+                <div class="zalo-warning">Bạn đang mở bằng Zalo</div>
+                <p id="zaloMessage" style="text-align:center">
+                    Để thêm lịch hẹn thành công, vui lòng mở bằng trình duyệt Web trên điện thoại.
+                </p>
+                <div class="device-box">
+                    <div class="device-title">📱 iPhone</div>
+                    <ul>
+                        <li>Nhấn biểu tượng ⋯ góc phải</li>
+                        <li>Chọn <b>Mở bằng Safari</b></li>
+                    </ul>
+                </div>
+                <div class="device-box">
+                    <div class="device-title">🤖 Android</div>
+                    <ul>
+                        <li>Nhấn biểu tượng ⋮ góc phải</li>
+                        <li>Chọn <b>Mở bằng trình duyệt</b></li>
+                    </ul>
+                </div>
+                <div style="margin-top:15px; padding:10px; background:#fff3cd; border-radius:8px; color:#856404; text-align:center; font-weight:bold;">
+                    Để quay lại Zalo, vui lòng nhấn ← ở góc trên bên trái.
+                </div>
+                <button class="zalo-btn" onclick="continueInZalo()">
+                    Tôi đã hiểu
+                </button>
             </div>
-            <button
-                class="zalo-btn"
-                onclick="continueInZalo()">
-                Tôi đã hiểu
-            </button>
         </div>
     </div>
-</div>
-<script>
 
-function decodeUtf8Base64(str){
-    return JSON.parse(
-        decodeURIComponent(
-            Array.prototype.map.call(atob(str), function(c){
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join('')
-        )
-    );
-}
+    <script>
+        // --- CÁC HÀM TIỆN ÍCH CƠ BẢN ---
+        function isZalo() {
+            return /zalo/i.test(navigator.userAgent);
+        }
 
-const params = new URLSearchParams(location.search);
-const data = decodeUtf8Base64(params.get("d"));
+        function continueInZalo() {
+            document.getElementById("zaloOverlay").style.display = "none";
+        }
 
-document.getElementById("title").textContent = data.title;
+        function decodeUtf8Base64(str) {
+            return JSON.parse(
+                decodeURIComponent(
+                    Array.prototype.map.call(atob(str), function(c) {
+                        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                    }).join('')
+                )
+            );
+        }
 
-let text = "";
+        // Cấu hình các biến toàn cục cần thiết cho các nút click
+        let globalData = null;
+        let finalInfoText = "";
 
-if(data.type === "account"){
+        // --- XỬ LÝ DỮ LIỆU VÀ HIỂN THỊ ---
+        // Sử dụng try...catch để bẫy lỗi giải mã Base64 hoặc thiếu tham số
+        try {
+            const params = new URLSearchParams(location.search);
+            const encodedParam = params.get("d");
+            
+            if (!encodedParam) {
+                throw new Error("Không tìm thấy tham số dữ liệu trên URL.");
+            }
 
-    document.getElementById("title").innerText =
-        "THÔNG TIN TÀI KHOẢN";
+            // Giải mã và lưu vào biến toàn cục để dùng khi tải xuống
+            const data = decodeUtf8Base64(encodedParam);
+            globalData = data; 
 
-    text =
+            // Cấu trúc DOM Elements (Lấy 1 lần để tối ưu tốc độ)
+            const titleEl = document.getElementById("title");
+            const infoEl = document.getElementById("info");
+            const contentEl = document.getElementById("content");
+            const calendarBtn = document.getElementById("calendarBtn");
+            const zaloOverlay = document.getElementById("zaloOverlay");
+            const zaloMessage = document.getElementById("zaloMessage");
+
+            // Xử lý logic theo từng loại (type)
+            let titleText = data.title || "Thông tin lịch hẹn";
+
+            if (data.type === "account") {
+                titleText = "THÔNG TIN TÀI KHOẢN";
+                finalInfoText = 
 `Họ tên khách hàng: ${data.customerName || ""}
 
 Số tài khoản: ${data.accountNumber || ""}
@@ -218,59 +213,43 @@ ${data.roomName || ""} - ${data.roomAddress || ""}
 
 SĐT liên hệ: ${data.contactPhone || ""}`;
 
-    document.getElementById("info").textContent = text;
-    
-    document.getElementById("info").insertAdjacentHTML(
-        "afterend",
-        `
-        <div style="margin-top:20px;">
-            <button id="saveContactBtn">
-                Lưu liên hệ
-            </button>
-        </div>
-        `
-    );
+                // Tạo giao diện chức năng riêng
+                contentEl.innerHTML = "";
+                infoEl.insertAdjacentHTML("afterend", `
+                    <div style="margin-top:20px;">
+                        <button id="saveContactBtn">Lưu liên hệ</button>
+                    </div>
+                `);
 
-    document.getElementById("content").innerHTML = "";
+                // Gán sự kiện nút Lưu liên hệ
+                document.getElementById("saveContactBtn").addEventListener("click", function() {
+                    if (isZalo()) {
+                        zaloMessage.innerHTML = "Để lưu thông tin liên hệ,<br>vui lòng mở bằng trình duyệt điện thoại.";
+                        zaloOverlay.style.display = "flex";
+                        return;
+                    }
+                    downloadVCF(data);
+                });
 
-    document
-        .getElementById("saveContactBtn")
-        .addEventListener("click", function(){
+                calendarBtn.style.display = "none"; // Ẩn nút lịch
 
-            if(isZalo()){
-                document.getElementById("zaloMessage").innerHTML =
-                    "Để lưu thông tin liên hệ,<br>" +
-                    "vui lòng mở bằng trình duyệt điện thoại.";
-                document.getElementById("zaloOverlay").style.display = "flex";
-                return;
-            }
-            downloadVCF(data);
-        });
+            } 
+            else if (data.type === "loan") {
+                finalInfoText = 
+`SĐT liên hệ: ${data.phone || ""}
 
-    document.querySelector(
-        'button[onclick="downloadICS()"]'
-    ).style.display = "none";
-}  
-else if(data.type === "loan"){
+Họ tên: ${data.customerName || ""}
+Ngày giải ngân: ${data.disburseDate || ""}
+STK khoản vay: ${data.loanAccount || ""}
+Kỳ hạn: ${data.term || ""}
+Ngày đến hạn: ${data.maturityDate || ""}
 
-text =
-`SĐT liên hệ: ${data.phone}
+${data.roomName || ""} - ${data.roomAddress || ""}`;
 
-Họ tên: ${data.customerName}
-Ngày giải ngân: ${data.disburseDate}
-STK khoản vay: ${data.loanAccount}
-Kỳ hạn: ${data.term}
-Ngày đến hạn: ${data.maturityDate}
-
-${data.roomName} - ${data.roomAddress}`;
-
-}
-else if(data.type === "qrmap"){
-
-    document.getElementById("title").innerText =
-        "THÔNG TIN KHÁCH HÀNG";
-
-    text =
+            } 
+            else if (data.type === "qrmap") {
+                titleText = "THÔNG TIN KHÁCH HÀNG";
+                finalInfoText = 
 `Họ tên: ${data.customerName || ""}
 
 Giới tính: ${data.gender || ""}
@@ -284,131 +263,93 @@ ${data.mapLink || ""}
 
 Ghi chú:
 ${data.note || ""}`;
+                
+                contentEl.innerHTML = "";
+                // Dọn dẹp DOM nếu đã tồn tại và tạo nút chức năng mới
+                const existingButtons = document.getElementById("qrMapButtons");
+                if (existingButtons) existingButtons.remove();
 
-document.getElementById("info").textContent = text;
-document.getElementById("qrMapButtons")?.remove();
+                infoEl.insertAdjacentHTML("afterend", `
+                    <div id="qrMapButtons" style="margin-top:20px;display:flex;gap:10px;">
+                        <button id="callBtn">📞 Gọi điện</button>
+                        <button id="mapBtn">📍 Chỉ đường</button>
+                    </div>
+                `);
 
-document.getElementById("info").insertAdjacentHTML(
-    "afterend",
-    `
-    <div id="qrMapButtons" style="margin-top:20px;display:flex;gap:10px;">
-        <button id="callBtn">
-            📞 Gọi điện
-        </button>
+                document.getElementById("callBtn").addEventListener("click", function() {
+                    if(data.phone) location.href = "tel:" + data.phone;
+                });
 
-        <button id="mapBtn">
-            📍 Chỉ đường
-        </button>
-    </div>
-    `
-);
+                document.getElementById("mapBtn").addEventListener("click", function() {
+                    // Fallback: Nếu không có directionUrl thì dùng mapLink
+                    const url = data.directionUrl || data.mapLink;
+                    if(url) window.open(url, "_blank");
+                });
 
-document.getElementById("content").innerHTML = "";
+                calendarBtn.style.display = "none";
 
-document
-    .getElementById("callBtn")
-    .addEventListener("click", function(){
-        location.href = "tel:" + data.phone;
-    });
+            } 
+            else {
+                // Mặc định cho tiết kiệm (saving)
+                finalInfoText = 
+`SĐT liên hệ: ${data.phone || ""}
 
-document
-    .getElementById("mapBtn")
-    .addEventListener("click", function(){
-        window.open(data.directionUrl,"_blank");
-    });
+Họ tên: ${data.customerName || ""}
+Ngày gửi: ${data.sendDate || ""}
+STK tiết kiệm: ${data.savingAccount || ""}
+Kỳ hạn: ${data.term || ""}
+Ngày đến hạn: ${data.maturityDate || ""}
 
-    document.querySelector(
-        'button[onclick="downloadICS()"]'
-    ).style.display="none";
-}else{
-text =
-`SĐT liên hệ: ${data.phone}
+${data.roomName || ""} - ${data.roomAddress || ""}`;
+            }
 
-Họ tên: ${data.customerName}
-Ngày gửi: ${data.sendDate}
-STK tiết kiệm: ${data.savingAccount}
-Kỳ hạn: ${data.term}
-Ngày đến hạn: ${data.maturityDate}
+            // Ghi đè DOM 1 lần duy nhất ở đây để tối ưu render
+            titleEl.textContent = titleText;
+            infoEl.textContent = finalInfoText;
 
-${data.roomName} - ${data.roomAddress}`;
-}
+            // Xử lý cảnh báo Zalo khi vừa vào trang
+            if (isZalo()) {
+                if (data.type === "account") {
+                    zaloMessage.innerHTML = "Để lưu thông tin liên hệ,<br>vui lòng mở bằng trình duyệt điện thoại.";
+                    // Chưa bật overlay ngay, chỉ bật khi ấn lưu
+                } else if (data.type !== "qrmap") {
+                    // Loan và default (tiết kiệm) sẽ hiện popup cảnh báo lịch
+                    zaloMessage.innerHTML = "Để thêm lịch hẹn thành công,<br>vui lòng mở bằng trình duyệt điện thoại.";
+                    zaloOverlay.style.display = "flex";
+                }
+            }
 
-document.getElementById("info").textContent = text;
+        } catch (error) {
+            // Hiển thị lỗi thân thiện với người dùng và log lỗi cho lập trình viên
+            console.error("[DEV LOG] Lỗi giải mã dữ liệu:", error);
+            
+            document.getElementById("title").textContent = "Không tìm thấy dữ liệu";
+            document.getElementById("info").textContent = "Vui lòng kiểm tra lại liên kết.";
+            document.getElementById("calendarBtn").style.display = "none";
+        }
 
-if(isZalo()){
-    if(data.type === "qrmap"){
-        // Không làm gì
-    }
-    else if(data.type === "account"){
-        document.getElementById("zaloMessage").innerHTML =
-            "Để lưu thông tin liên hệ,<br>" +
-            "vui lòng mở bằng trình duyệt điện thoại.";
-    }else{
-        document.getElementById("zaloMessage").innerHTML =
-            "Để thêm lịch hẹn thành công,<br>" +
-            "vui lòng mở bằng trình duyệt điện thoại.";
-        document.getElementById("zaloOverlay").style.display = "flex";
-    }
-}
+        // --- CÁC HÀM TẢI XUỐNG ---
+        function downloadICS() {
+            if (!globalData || globalData.type === "qrmap") return;
 
-function isZalo(){
-    return /zalo/i.test(navigator.userAgent);
-}
+            if (isZalo()) {
+                const zaloOverlay = document.getElementById("zaloOverlay");
+                document.getElementById("zaloMessage").innerHTML = "Để thêm lịch hẹn thành công,<br>vui lòng mở bằng trình duyệt điện thoại.";
+                zaloOverlay.style.display = "flex";
+                return;
+            }
 
-function openExternalBrowser(){
-    const currentUrl = location.href;
-    try{
-        window.open(currentUrl, "_blank");
-    }catch(e){}
-    setTimeout(function(){
-        alert(
-`Nếu trang chưa mở bằng trình duyệt:
+            // Xử lý ký tự xuống dòng chuẩn cho file ics
+            const description = finalInfoText.replace(/\n/g, "\\n");
 
-iPhone:
-• Nhấn dấu ⋯
-• Chọn "Mở bằng Safari"
-
-Android:
-• Nhấn dấu ⋮
-• Chọn "Mở bằng trình duyệt"`
-        );
-
-    },1000);
-}
-
-function continueInZalo(){
-
-    document.getElementById("zaloOverlay").style.display = "none";
-
-}
-
-function downloadICS(){
-
-if(data.type === "qrmap"){
-    return;
-}
-
-if(isZalo()){
-
-    document.getElementById("zaloMessage").innerHTML =
-        "Để thêm lịch hẹn thành công,<br>" +
-        "vui lòng mở bằng trình duyệt điện thoại.";
-
-    document.getElementById("zaloOverlay").style.display = "flex";
-
-    return;
-}
-
-const description = text.replace(/\n/g,"\\n");
-
-const ics =
+            const ics =
 `BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//VietinBank//QR Calendar//VN
 BEGIN:VEVENT
-SUMMARY:${data.title}
-DTSTART:${data.startDate}
-DTEND:${data.endDate}
+SUMMARY:${globalData.title || "Lịch hẹn VietinBank"}
+DTSTART:${globalData.startDate || ""}
+DTEND:${globalData.endDate || ""}
 DESCRIPTION:${description}
 BEGIN:VALARM
 TRIGGER:-P1D
@@ -423,23 +364,21 @@ END:VALARM
 END:VEVENT
 END:VCALENDAR`;
 
-const blob = new Blob([ics], {
-type: 'text/calendar;charset=utf-8'
-});
+            const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "lichhen.ics";
+            document.body.appendChild(a); // Bổ sung vào DOM để Firefox tương thích tốt hơn
+            a.click();
+            document.body.removeChild(a);
+        }
 
-const a = document.createElement("a");
-a.href = URL.createObjectURL(blob);
-a.download = "lichhen.ics";
-a.click();
-}
+        function downloadVCF(data) {
+            const note = 
+                `Số tài khoản: ${data.accountNumber || ""}\\n` +
+                `Tên đăng nhập Ipay: ${data.ipayUsername || ""}`;
 
-function downloadVCF(data){
-const note =
-    `Số tài khoản: ${data.accountNumber || ""}\\n` +
-    `Tên đăng nhập Ipay: ${data.ipayUsername || ""}`;
-
-const vcf =
-
+            const vcf =
 `BEGIN:VCARD
 VERSION:3.0
 N:${data.roomName || "PGD"};VietinBank;;;
@@ -450,20 +389,15 @@ ADR;TYPE=WORK:;;${data.roomAddress || ""};;;;
 NOTE:${note}
 END:VCARD`;
 
-const blob = new Blob(
-    [vcf],
-    { type: "text/vcard;charset=utf-8" }
-);
+            const blob = new Blob([vcf], { type: "text/vcard;charset=utf-8" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "contact.vcf";
 
-const link = document.createElement("a");
-link.href = URL.createObjectURL(blob);
-link.download = "contact.vcf";
-
-document.body.appendChild(link);
-link.click();
-document.body.removeChild(link);
-}
-
-</script>
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
 </body>
 </html>
