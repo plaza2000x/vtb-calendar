@@ -336,7 +336,10 @@ ${data.roomName} - ${data.roomAddress}`;
 document.getElementById("info").textContent = text;
 
 if(isZalo()){
-    if(data.type === "account"){
+    if(data.type === "qrmap"){
+        // Không làm gì
+    }
+    else if(data.type === "account"){
         document.getElementById("zaloMessage").innerHTML =
             "Để lưu thông tin liên hệ,<br>" +
             "vui lòng mở bằng trình duyệt điện thoại.";
@@ -344,8 +347,8 @@ if(isZalo()){
         document.getElementById("zaloMessage").innerHTML =
             "Để thêm lịch hẹn thành công,<br>" +
             "vui lòng mở bằng trình duyệt điện thoại.";
+        document.getElementById("zaloOverlay").style.display = "flex";
     }
-    document.getElementById("zaloOverlay").style.display = "flex";
 }
 
 function isZalo(){
