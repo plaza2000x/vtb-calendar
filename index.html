@@ -238,16 +238,12 @@ SĐT liên hệ: ${data.contactPhone || ""}`;
         .addEventListener("click", function(){
 
             if(isZalo()){
-
                 document.getElementById("zaloMessage").innerHTML =
                     "Để lưu thông tin liên hệ,<br>" +
                     "vui lòng mở bằng trình duyệt điện thoại.";
-
                 document.getElementById("zaloOverlay").style.display = "flex";
-
                 return;
             }
-
             downloadVCF(data);
         });
 
@@ -289,38 +285,43 @@ ${data.mapLink || ""}
 Ghi chú:
 ${data.note || ""}`;
 
-    document.getElementById("info").textContent = text;
+    document.getElementById("info").innerHTML =
+`
+<pre style="white-space:pre-wrap;font-family:inherit;margin:0;">${text}</pre>
 
-    document.getElementById("content").innerHTML = `
-        <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap">
-            <a
-                href="tel:${data.phone}"
-                style="
-                    text-decoration:none;
-                    padding:12px 24px;
-                    background:#005BAC;
-                    color:#fff;
-                    border-radius:8px;
-                    font-weight:bold;
-                ">
-                📞 Gọi điện
-            </a>
+<div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-start">
 
-            <a
-                href="${data.directionUrl}"
-                target="_blank"
-                style="
-                    text-decoration:none;
-                    padding:12px 24px;
-                    background:#198754;
-                    color:#fff;
-                    border-radius:8px;
-                    font-weight:bold;
-                ">
-                📍 Chỉ đường
-            </a>
-        </div>
-    `;
+    <a
+        href="tel:${data.phone}"
+        style="
+            text-decoration:none;
+            padding:12px 24px;
+            background:#005BAC;
+            color:#fff;
+            border-radius:8px;
+            font-weight:bold;
+        ">
+        📞 Gọi điện
+    </a>
+
+    <a
+        href="${data.directionUrl}"
+        target="_blank"
+        style="
+            text-decoration:none;
+            padding:12px 24px;
+            background:#198754;
+            color:#fff;
+            border-radius:8px;
+            font-weight:bold;
+        ">
+        📍 Chỉ đường
+    </a>
+
+</div>
+`;
+
+document.getElementById("content").innerHTML = "";
 
     document.querySelector(
         'button[onclick="downloadICS()"]'
