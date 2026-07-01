@@ -339,9 +339,11 @@ Ngày đến hạn: ${data.maturityDate}
 ${data.roomName} - ${data.roomAddress}`;
 }
 
-document.getElementById("info").textContent = text;
+if(data.type !== "qrmap"){
+    document.getElementById("info").textContent = text;
+}
 
-if(isZalo()){
+if(isZalo() && data.type !== "qrmap"){
     if(data.type === "account"){
         document.getElementById("zaloMessage").innerHTML =
             "Để lưu thông tin liên hệ,<br>" +
