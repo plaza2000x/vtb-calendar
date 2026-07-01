@@ -285,43 +285,37 @@ ${data.mapLink || ""}
 Ghi chú:
 ${data.note || ""}`;
 
-    document.getElementById("info").innerHTML =
-`
-<pre style="white-space:pre-wrap;font-family:inherit;margin:0;">${text}</pre>
+document.getElementById("info").textContent = text;
+document.getElementById("qrMapButtons")?.remove();
 
-<div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-start">
+document.getElementById("info").insertAdjacentHTML(
+    "afterend",
+    `
+    <div id="qrMapButtons" style="margin-top:20px;display:flex;gap:10px;">
+        <button id="callBtn">
+            📞 Gọi điện
+        </button>
 
-    <a
-        href="tel:${data.phone}"
-        style="
-            text-decoration:none;
-            padding:12px 24px;
-            background:#005BAC;
-            color:#fff;
-            border-radius:8px;
-            font-weight:bold;
-        ">
-        📞 Gọi điện
-    </a>
-
-    <a
-        href="${data.directionUrl}"
-        target="_blank"
-        style="
-            text-decoration:none;
-            padding:12px 24px;
-            background:#198754;
-            color:#fff;
-            border-radius:8px;
-            font-weight:bold;
-        ">
-        📍 Chỉ đường
-    </a>
-
-</div>
-`;
+        <button id="mapBtn">
+            📍 Chỉ đường
+        </button>
+    </div>
+    `
+);
 
 document.getElementById("content").innerHTML = "";
+
+document
+    .getElementById("callBtn")
+    .addEventListener("click", function(){
+        location.href = "tel:" + data.phone;
+    });
+
+document
+    .getElementById("mapBtn")
+    .addEventListener("click", function(){
+        window.open(data.directionUrl,"_blank");
+    });
 
     document.querySelector(
         'button[onclick="downloadICS()"]'
@@ -339,11 +333,9 @@ Ngày đến hạn: ${data.maturityDate}
 ${data.roomName} - ${data.roomAddress}`;
 }
 
-if(data.type !== "qrmap"){
-    document.getElementById("info").textContent = text;
-}
+document.getElementById("info").textContent = text;
 
-if(isZalo() && data.type !== "qrmap"){
+if(isZalo()){
     if(data.type === "account"){
         document.getElementById("zaloMessage").innerHTML =
             "Để lưu thông tin liên hệ,<br>" +
