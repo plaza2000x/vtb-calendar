@@ -342,27 +342,15 @@ ${data.roomName} - ${data.roomAddress}`;
 document.getElementById("info").textContent = text;
 
 if(isZalo()){
-
     if(data.type === "account"){
-
         document.getElementById("zaloMessage").innerHTML =
             "Để lưu thông tin liên hệ,<br>" +
             "vui lòng mở bằng trình duyệt điện thoại.";
-
-    }
-    else if(data.type === "qrmap"){
-
-        document.getElementById("zaloMessage").innerHTML =
-            "Để gọi điện hoặc mở bản đồ,<br>" +
-            "vui lòng mở bằng trình duyệt điện thoại.";
-
     }else{
-
         document.getElementById("zaloMessage").innerHTML =
             "Để thêm lịch hẹn thành công,<br>" +
             "vui lòng mở bằng trình duyệt điện thoại.";
     }
-
     document.getElementById("zaloOverlay").style.display = "flex";
 }
 
